@@ -1,0 +1,14 @@
+{
+    "item.ssc_furniture.amethyst_sword": "Amethyst Sword",
+    "item.ssc_furniture.amethyst_axe": "Amethyst Axe",
+    "block.ssc_furniture.waterbed": "Waterbed",
+    "block.ssc_furniture.bathtub_bed": "Bathtub Bed",
+    "block.ssc_furniture.bathtub_bed.deny": "You must be in Axolotl form to sleep in a Bathtub Bed!",
+    "item.ssc_furniture.iron_grappling_hook": "Iron Silk Launcher",
+    "item.ssc_furniture.diamond_grappling_hook": "Diamond Silk Launcher",
+    "item.ssc_furniture.grappling_hook.tooltip": "High-pressure silk extrusion",
+    "item.ssc_furniture.grappling_hook.not_spider": "You must be in Spider form to use this.",
+    "item.ssc_furniture.grappling_hook.no_silk": "Not enough silk (need %s).",
+    "subtitles.ssc_furniture.grappling_hook.shoot": "Spider spits silk",
+    "itemGroup.ssc_furniture": "SSC Furniture"
+}

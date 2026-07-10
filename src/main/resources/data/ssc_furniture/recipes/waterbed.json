@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "ZZZ",
+        "WWW",
+        "QQQ"
+    ],
+    "key": {
+        "Z": {
+          "item": "shape-shifter-curse:untreated_moondust"
+        },
+        "W": {
+            "item": "minecraft:water_bucket"
+        },
+        "Q": {
+            "item": "minecraft:quartz"
+        }
+    },
+    "result": {
+        "item": "ssc_furniture:waterbed",
+        "count": 1
+    }
+}

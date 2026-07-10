@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "ssc_furniture",
+	"version": "${version}",
+	"name": "SSC Furniture",
+	"description": "Furniture mod for ShapeShifter's Curse server",
+	"authors": [
+		"Bai"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/ssc_furniture/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"ly.ssc_furniture.SSCFurniture"
+		],
+
+		"client": [
+			"ly.ssc_furniture.client.SSCFurnitureClient"
+		]
+	},
+	"mixins": [
+		"ssc_furniture.mixins.json",
+		{
+			"config": "ssc_furniture.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.2",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*",
+		"shape-shifter-curse": ">=1.9.2"
+	}
+}

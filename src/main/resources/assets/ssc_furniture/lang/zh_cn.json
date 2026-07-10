@@ -1,0 +1,14 @@
+{
+    "item.ssc_furniture.amethyst_sword": "紫水晶剑",
+    "item.ssc_furniture.amethyst_axe": "紫水晶斧",
+    "block.ssc_furniture.waterbed": "水床",
+    "block.ssc_furniture.bathtub_bed": "浴缸床",
+    "block.ssc_furniture.bathtub_bed.deny": "你必须处于Axolotl形态才能使用浴缸床睡觉！",
+    "item.ssc_furniture.iron_grappling_hook": "铁质蛛丝发射器",
+    "item.ssc_furniture.diamond_grappling_hook": "钻石蛛丝发射器",
+    "item.ssc_furniture.grappling_hook.tooltip": "高压挤出你的蛛丝",
+    "item.ssc_furniture.grappling_hook.not_spider": "只有蜘蛛形态才能使用钩爪！",
+    "item.ssc_furniture.grappling_hook.no_silk": "蛛丝不足（需要 %s 点）！",
+    "subtitles.ssc_furniture.grappling_hook.shoot": "蜘蛛吐丝声",
+    "itemGroup.ssc_furniture": "SSC 家具"
+}

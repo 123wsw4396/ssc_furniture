@@ -1,0 +1,12 @@
+{
+  "item.grappling_hook.shoot": {
+    "category": "player",
+    "subtitle": "subtitles.ssc_furniture.grappling_hook.shoot",
+    "sounds": [
+      {
+        "name": "ssc_furniture:item/grappling_hook/spider_claw_sound",
+        "stream": false
+      }
+    ]
+  }
+}

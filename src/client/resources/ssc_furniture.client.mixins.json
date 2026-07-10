@@ -1,0 +1,15 @@
+{
+	"required": true,
+	"package": "ly.ssc_furniture.client.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"client": [
+		"ExampleClientMixin",
+		"GameRendererMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

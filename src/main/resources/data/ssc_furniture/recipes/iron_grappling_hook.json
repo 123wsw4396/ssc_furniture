@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "CAC",
+        "SAS",
+        "BSB"
+    ],
+    "key": {
+      "S": {
+        "item": "minecraft:iron_ingot"
+      },
+      "A": {
+        "item": "shape-shifter-curse:silk_dew"
+      },
+      "B": {
+        "item": "shape-shifter-curse:untreated_moondust"
+      },
+      "C": {
+        "item": "minecraft:piston"
+      }
+    },
+    "result": {
+        "item": "ssc_furniture:iron_grappling_hook",
+        "count": 1
+    }
+}
