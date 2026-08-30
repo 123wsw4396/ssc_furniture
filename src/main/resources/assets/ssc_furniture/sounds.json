@@ -8,5 +8,15 @@
         "stream": false
       }
     ]
+  },
+  "block.digestion_web_box.open_close": {
+    "category": "block",
+    "subtitle": "subtitles.ssc_furniture.digestion_web_box.open_close",
+    "sounds": [
+      {
+        "name": "ssc_furniture:block/digestion_web_box/open_close",
+        "stream": false
+      }
+    ]
   }
 }

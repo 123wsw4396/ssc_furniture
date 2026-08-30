@@ -5,6 +5,7 @@ import ly.ssc_furniture.entity.GrapplingHookEntity;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
@@ -14,7 +15,6 @@ public class HangAnimation {
 
     public static final ResourceLocation ANIM_ID = new ResourceLocation("ssc_furniture", "spider_3_hang");
 
-    private static final double CEILING_DIR_Y_MIN = 0.7;
     private static final double ARRIVAL_DISTANCE = 2.0;
 
     private static boolean currentlyHanging = false;
@@ -62,13 +62,12 @@ public class HangAnimation {
             if (hook.getOwner() != player) continue;
             if (!hook.isNoGravity()) continue;
 
+            // 仅命中方块底面 (= 天花板挂点) 才允许倒立; 命中侧面/实体不倒立
+            if (hook.getHitFace() != Direction.DOWN) continue;
+
             double dx = hook.getX() - player.getX();
             double dy = hook.getY() - player.getEyeY();
             double dz = hook.getZ() - player.getZ();
-            double len = Math.sqrt(dx * dx + dy * dy + dz * dz);
-            if (len < 0.001) continue;
-            if ((dy / len) < CEILING_DIR_Y_MIN) continue;
-
             double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
             if (dist > ARRIVAL_DISTANCE) continue;
 

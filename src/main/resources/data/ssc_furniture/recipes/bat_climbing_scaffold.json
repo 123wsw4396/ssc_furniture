@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " M ",
+        "WWW",
+        "SSS"
+    ],
+    "key": {
+        "M": {
+            "item": "shape-shifter-curse:untreated_moondust"
+        },
+        "W": {
+            "tag": "minecraft:wooden_slabs"
+        },
+        "S": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "ssc_furniture:bat_climbing_scaffold",
+        "count": 1
+    }
+}

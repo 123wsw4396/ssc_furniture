@@ -2,6 +2,7 @@ package ly.ssc_furniture.item;
 
 import ly.ssc_furniture.SSCFurniture;
 import ly.ssc_furniture.entity.GrapplingHookEntity;
+import ly.ssc_furniture.server.HookRegistry;
 import ly.ssc_furniture.sound.ModSounds;
 import java.util.List;
 import net.minecraft.network.chat.Component;
@@ -31,14 +32,23 @@ public class GrapplingHookItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
         tooltip.add(Component.translatable("item.ssc_furniture.grappling_hook.tooltip"));
+        tooltip.add(Component.translatable("item.ssc_furniture.grappling_hook.tooltip.mode_b"));
         super.appendHoverText(stack, level, tooltip, flag);
     }
 
-    private static double getSilkCost(int tier) {
+    public static double getSilkCostForTier(int tier) {
         switch (tier) {
             case 3: return 8.0;
             case 2: return 10.0;
             default: return BASE_SILK_COST;
+        }
+    }
+
+    public static double getTrinketSilkCostForTier(int tier) {
+        switch (tier) {
+            case 3: return 7.0;
+            case 2: return 9.0;
+            default: return 11.0;
         }
     }
 
@@ -56,7 +66,7 @@ public class GrapplingHookItem extends Item {
         }
 
         int tier = Math.min(spiderInfo.tier, 3);
-        double cost = getSilkCost(tier);
+        double cost = getSilkCostForTier(tier);
 
         double silk = SSCFurniture.getPlayerSilk(player);
         if (silk < cost) {
@@ -67,34 +77,59 @@ public class GrapplingHookItem extends Item {
             return InteractionResultHolder.fail(stack);
         }
 
+        boolean modeB;
+        if (HookRegistry.hasAnyStuckModeA(player)) {
+            modeB = false;
+        } else if (HookRegistry.hasAnyStuckModeB(player)) {
+            modeB = true;
+        } else {
+            modeB = player.isShiftKeyDown();
+        }
+
         if (!level.isClientSide) {
-            SSCFurniture.tryConsumeSilk(player, cost);
-
-            double mult = 1.0 + SPEED_MULT * tier / 3.0;
-            double maxDist = BASE_MAX_DISTANCE + DISTANCE_BONUS * tier / 3.0;
-            double pullSpd = BASE_PULL_SPEED * mult;
-            float shootVel = (float) (BASE_SHOOT_VELOCITY * mult);
-
-            GrapplingHookEntity hook = new GrapplingHookEntity(level, player);
-            hook.setMaxDistance(maxDist);
-            hook.setPullSpeed(pullSpd);
-            Vec3 look = player.getLookAngle();
-            float bodyYawRad = player.yBodyRot * ((float) Math.PI / 180F);
-            double backX = -Math.sin(bodyYawRad);
-            double backZ = Math.cos(bodyYawRad);
-            double backOffset = spiderInfo.tier >= 3 ? 0.75 : 0.5;
-            double spawnX = player.getX() - backX * backOffset;
-            double spawnZ = player.getZ() - backZ * backOffset;
-            double spawnY = player.getY() + (spiderInfo.tier >= 3 ? 0.7 : 0.9);
-            hook.setPos(spawnX, spawnY, spawnZ);
-            hook.shoot(look.x, look.y, look.z, shootVel, 0.5F);
-            level.addFreshEntity(hook);
-            level.playSound(null, player.getX(), player.getY(), player.getZ(),
-                    ModSounds.GRAPPLING_HOOK_SHOOT, SoundSource.PLAYERS, 0.5F, 0.4F);
+            fireHook(player, level, spiderInfo, modeB, cost);
             stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
         }
 
         player.getCooldowns().addCooldown(this, 20);
         return InteractionResultHolder.success(stack);
+    }
+
+    /**
+     * 发射钩爪. 由手持 use() 与饰品 Mixin 共享.
+     * 调用前需自行检查 silk 是否足够. 不会 hurtAndBreak (由 caller 处理).
+     */
+    public static void fireHook(Player player, Level level,
+                                SSCFurniture.SpiderFormInfo spiderInfo,
+                                boolean modeB, double silkCost) {
+        if (level.isClientSide) return;
+
+        SSCFurniture.tryConsumeSilk(player, silkCost);
+
+        int tier = Math.min(spiderInfo.tier, 3);
+        double mult = 1.0 + SPEED_MULT * tier / 3.0;
+        double maxDist = BASE_MAX_DISTANCE + DISTANCE_BONUS * tier / 3.0;
+        double pullSpd = BASE_PULL_SPEED * mult;
+        float shootVel = (float) (BASE_SHOOT_VELOCITY * mult);
+
+        GrapplingHookEntity hook = new GrapplingHookEntity(level, player);
+        hook.setMaxDistance(maxDist);
+        hook.setPullSpeed(pullSpd);
+        hook.setBModeSpeed(0.022 * spiderInfo.tier);
+        hook.setModeB(modeB);
+        hook.setNovice(spiderInfo.tier == 0);
+        Vec3 look = player.getLookAngle();
+        float bodyYawRad = player.yBodyRot * ((float) Math.PI / 180F);
+        double backX = -Math.sin(bodyYawRad);
+        double backZ = Math.cos(bodyYawRad);
+        double backOffset = spiderInfo.tier >= 3 ? 0.75 : 0.5;
+        double spawnX = player.getX() - backX * backOffset;
+        double spawnZ = player.getZ() - backZ * backOffset;
+        double spawnY = player.getY() + (spiderInfo.tier >= 3 ? 0.7 : 0.9);
+        hook.setPos(spawnX, spawnY, spawnZ);
+        hook.shoot(look.x, look.y, look.z, shootVel, 0.5F);
+        level.addFreshEntity(hook);
+        level.playSound(null, player.getX(), player.getY(), player.getZ(),
+                ModSounds.GRAPPLING_HOOK_SHOOT, SoundSource.PLAYERS, 0.5F, 0.4F);
     }
 }

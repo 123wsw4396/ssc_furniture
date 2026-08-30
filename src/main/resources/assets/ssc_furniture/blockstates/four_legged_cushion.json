@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=south": { "model": "ssc_furniture:block/four_legged_cushion" },
+        "facing=west":  { "model": "ssc_furniture:block/four_legged_cushion", "y": 90 },
+        "facing=north": { "model": "ssc_furniture:block/four_legged_cushion", "y": 180 },
+        "facing=east":  { "model": "ssc_furniture:block/four_legged_cushion", "y": 270 }
+    }
+}

@@ -12,10 +12,27 @@ repositories {
 		name = "BlameJared"
 		url = "https://maven.blamejared.com/"
 	}
+	maven {
+		name = "GeckoLib"
+		url = "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/"
+	}
+	maven {
+		name = "Terraformers"
+		url = "https://maven.terraformersmc.com/releases/"
+	}
+	maven {
+		name = "Ladysnake Mods"
+		url = "https://maven.ladysnake.org/releases"
+	}
 }
 
 loom {
 	splitEnvironmentSourceSets()
+
+	mixin {
+		useLegacyMixinAp = true
+		defaultRefmapName = "ssc_furniture-refmap.json"
+	}
 
 	mods {
 		"ssc_furniture" {
@@ -31,8 +48,15 @@ dependencies {
 	mappings loom.officialMojangMappings()
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-	modCompileOnly "net.onixary:shape-shifter-curse-fabric:1.9.2"
+	modCompileOnly "net.onixary:shape-shifter-curse-fabric:1.10.0"
+	modCompileOnly("software.bernie.geckolib:geckolib-fabric-1.20.1:${geckolib_version}") { transitive = false }
+	modLocalRuntime("software.bernie.geckolib:geckolib-fabric-1.20.1:${geckolib_version}") { transitive = false }
+	modCompileOnly("com.terraformersmc:modmenu:7.2.2") { transitive = false }
+	modLocalRuntime("com.terraformersmc:modmenu:7.2.2") { transitive = false }
 	modLocalRuntime "mezz.jei:jei-1.20.1-fabric:${project.jei_version}"
+	modCompileOnly "dev.emi:trinkets:3.7.2"
+	modCompileOnly("io.github.apace100:apoli:2.9.2+mc.1.20.x") { transitive = false }
+	modCompileOnly("io.github.apace100:calio:1.11.2+mc.1.20.x") { transitive = false }
 }
 
 processResources {

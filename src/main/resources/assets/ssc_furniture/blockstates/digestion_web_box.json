@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "ssc_furniture:block/digestion_web_box" },
+        "facing=south": { "model": "ssc_furniture:block/digestion_web_box" },
+        "facing=east":  { "model": "ssc_furniture:block/digestion_web_box" },
+        "facing=west":  { "model": "ssc_furniture:block/digestion_web_box" }
+    }
+}

@@ -3,7 +3,7 @@
     "pattern": [
       "CAC",
       "SAS",
-      "BSB"
+      "BMB"
     ],
   "key": {
     "S": {
@@ -17,6 +17,9 @@
     },
     "C": {
       "item":"minecraft:piston"
+    },
+    "M": {
+      "item":"shape-shifter-curse:moondust_crystal_shard"
     }
   },
     "result": {

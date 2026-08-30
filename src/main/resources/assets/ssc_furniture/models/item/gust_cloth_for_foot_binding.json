@@ -1,0 +1,24 @@
+﻿{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "ssc_furniture:item/gust_cloth_for_foot_binding"
+    },
+    "overrides": [
+        { "predicate": { "ssc_furniture:dye_color": 0.058823 }, "model": "ssc_furniture:item/gust_cloth_for_foot_binding_white" },
+        { "predicate": { "ssc_furniture:dye_color": 0.117647 }, "model": "ssc_furniture:item/gust_cloth_for_foot_binding_orange" },
+        { "predicate": { "ssc_furniture:dye_color": 0.176470 }, "model": "ssc_furniture:item/gust_cloth_for_foot_binding_magenta" },
+        { "predicate": { "ssc_furniture:dye_color": 0.235294 }, "model": "ssc_furniture:item/gust_cloth_for_foot_binding_light_blue" },
+        { "predicate": { "ssc_furniture:dye_color": 0.294117 }, "model": "ssc_furniture:item/gust_cloth_for_foot_binding_yellow" },
+        { "predicate": { "ssc_furniture:dye_color": 0.352941 }, "model": "ssc_furniture:item/gust_cloth_for_foot_binding_lime" },
+        { "predicate": { "ssc_furniture:dye_color": 0.411764 }, "model": "ssc_furniture:item/gust_cloth_for_foot_binding_pink" },
+        { "predicate": { "ssc_furniture:dye_color": 0.470588 }, "model": "ssc_furniture:item/gust_cloth_for_foot_binding_gray" },
+        { "predicate": { "ssc_furniture:dye_color": 0.529411 }, "model": "ssc_furniture:item/gust_cloth_for_foot_binding_light_gray" },
+        { "predicate": { "ssc_furniture:dye_color": 0.588235 }, "model": "ssc_furniture:item/gust_cloth_for_foot_binding_cyan" },
+        { "predicate": { "ssc_furniture:dye_color": 0.647058 }, "model": "ssc_furniture:item/gust_cloth_for_foot_binding_purple" },
+        { "predicate": { "ssc_furniture:dye_color": 0.705882 }, "model": "ssc_furniture:item/gust_cloth_for_foot_binding_blue" },
+        { "predicate": { "ssc_furniture:dye_color": 0.764705 }, "model": "ssc_furniture:item/gust_cloth_for_foot_binding_brown" },
+        { "predicate": { "ssc_furniture:dye_color": 0.823529 }, "model": "ssc_furniture:item/gust_cloth_for_foot_binding_green" },
+        { "predicate": { "ssc_furniture:dye_color": 0.882352 }, "model": "ssc_furniture:item/gust_cloth_for_foot_binding_red" },
+        { "predicate": { "ssc_furniture:dye_color": 0.941176 }, "model": "ssc_furniture:item/gust_cloth_for_foot_binding_black" }
+    ]
+}

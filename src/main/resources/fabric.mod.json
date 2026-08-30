@@ -8,8 +8,7 @@
 		"Bai"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/123wsw4396/ssc_furniture"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/ssc_furniture/icon.png",
@@ -21,6 +20,10 @@
 
 		"client": [
 			"ly.ssc_furniture.client.SSCFurnitureClient"
+		],
+
+		"modmenu": [
+			"ly.ssc_furniture.client.modmenu.SSCFurnitureModMenu"
 		]
 	},
 	"mixins": [
@@ -35,6 +38,10 @@
 		"minecraft": "~1.20.1",
 		"java": ">=17",
 		"fabric-api": "*",
-		"shape-shifter-curse": ">=1.9.2"
+		"shape-shifter-curse": ">=1.10.0",
+		"geckolib": ">=4.0.0"
+	},
+	"recommends": {
+		"trinkets": ">=3.7.2"
 	}
 }

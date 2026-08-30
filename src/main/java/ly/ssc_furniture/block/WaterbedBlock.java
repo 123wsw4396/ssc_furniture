@@ -2,6 +2,7 @@ package ly.ssc_furniture.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -28,6 +29,8 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import ly.ssc_furniture.util.FormRequirement;
 
 public class WaterbedBlock extends BedBlock {
 
@@ -75,6 +78,12 @@ public class WaterbedBlock extends BedBlock {
                     player.drop(waterBucket, false);
                 }
                 level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
+                return InteractionResult.SUCCESS;
+            }
+            if (!FormRequirement.isAxolotlTier1OrAbove(player)) {
+                player.displayClientMessage(
+                    Component.translatable("block.ssc_furniture.water_form_required"), true);
+                return InteractionResult.FAIL;
             }
         }
         return super.use(state, level, pos, player, hand, hit);

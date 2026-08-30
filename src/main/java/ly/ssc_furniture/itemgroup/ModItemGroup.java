@@ -22,10 +22,16 @@ public class ModItemGroup {
                     .displayItems((context, entries) -> {
                         entries.accept(ModBlocks.WATERBED);
                         entries.accept(ModBlocks.BATHTUB_BED);
+                        entries.accept(ModBlocks.FOUR_LEGGED_CUSHION);
+                        entries.accept(ModBlocks.DIGESTION_WEB_BOX);
+                        entries.accept(ModBlocks.BAT_CLIMBING_SCAFFOLD);
                         entries.accept(ModItems.AMETHYST_SWORD);
                         entries.accept(ModItems.AMETHYST_AXE);
                         entries.accept(ModItems.IRON_GRAPPLING_HOOK);
                         entries.accept(ModItems.DIAMOND_GRAPPLING_HOOK);
+                        entries.accept(ModItems.SHAPING_GRAPPLING_HOOK_IRON);
+                        entries.accept(ModItems.SHAPING_GRAPPLING_HOOK_DIAMOND);
+                        entries.accept(ModItems.GUST_CLOTH_FOR_FOOT_BINDING);
                     })
                     .build()
     );

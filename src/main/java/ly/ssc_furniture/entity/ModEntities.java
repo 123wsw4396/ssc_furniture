@@ -22,6 +22,16 @@ public class ModEntities {
                     .build()
     );
 
+    public static final EntityType<SeatEntity> SEAT = Registry.register(
+            BuiltInRegistries.ENTITY_TYPE,
+            new ResourceLocation(SSCFurniture.MOD_ID, "seat"),
+            FabricEntityTypeBuilder.<SeatEntity>create(MobCategory.MISC, SeatEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.01F, 0.01F))
+                    .trackRangeBlocks(16)
+                    .trackedUpdateRate(20)
+                    .build()
+    );
+
     public static void register() {
         SSCFurniture.LOGGER.info("Registering entities for " + SSCFurniture.MOD_ID);
     }

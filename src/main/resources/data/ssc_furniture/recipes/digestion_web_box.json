@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "ADA",
+    "ABA"
+  ],
+  "key": {
+    "A": { "item": "minecraft:cobweb" },
+    "B": { "item": "minecraft:chest" },
+    "C": { "item": "shape-shifter-curse:untreated_moondust" },
+    "D": { "item": "shape-shifter-curse:web_composter" }
+  },
+  "result": {
+    "item": "ssc_furniture:digestion_web_box",
+    "count": 1
+  }
+}

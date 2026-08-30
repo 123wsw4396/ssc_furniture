@@ -30,6 +30,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import ly.ssc_furniture.util.FormRequirement;
+
 public class BathtubBedBlock extends BedBlock {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -116,6 +118,12 @@ public class BathtubBedBlock extends BedBlock {
             if (state.getValue(OCCUPIED)) {
                 player.displayClientMessage(
                     Component.translatable("block.minecraft.bed.occupied"), true);
+                return InteractionResult.FAIL;
+            }
+
+            if (!FormRequirement.isAxolotlTier1OrAbove(player)) {
+                player.displayClientMessage(
+                    Component.translatable("block.ssc_furniture.water_form_required"), true);
                 return InteractionResult.FAIL;
             }
 
