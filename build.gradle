@@ -57,6 +57,14 @@ dependencies {
 	modCompileOnly "dev.emi:trinkets:3.7.2"
 	modCompileOnly("io.github.apace100:apoli:2.9.2+mc.1.20.x") { transitive = false }
 	modCompileOnly("io.github.apace100:calio:1.11.2+mc.1.20.x") { transitive = false }
+	// SSC 通过 Cardinal Components API 暴露 PlayerFormComponent / PlayerSkinComponent.
+	// CCA 运行时随 SSC 一同存在, 这里仅编译期需要其类型 (ComponentKey.get 等).
+	modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.2"
+	modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.2"
+}
+
+configurations.configureEach {
+	exclude group: "io.github.llamalad7", module: "mixinextras-fabric"
 }
 
 processResources {

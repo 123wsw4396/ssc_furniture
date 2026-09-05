@@ -1,11 +1,18 @@
 package ly.ssc_furniture.compat;
 
-import ly.ssc_furniture.SSCFurniture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import net.onixary.shapeShifterCurseFabric.player_form.IForm;
+import net.onixary.shapeShifterCurseFabric.player_form.forms.Form_AnubisWolf3;
+import net.onixary.shapeShifterCurseFabric.player_form.forms.Form_Bat2;
+import net.onixary.shapeShifterCurseFabric.player_form.forms.Form_Bat3;
+import net.onixary.shapeShifterCurseFabric.player_form.forms.Form_FamiliarFox2;
+import net.onixary.shapeShifterCurseFabric.player_form.forms.Form_FamiliarFox3;
+import net.onixary.shapeShifterCurseFabric.player_form.forms.Form_Ocelot2;
+import net.onixary.shapeShifterCurseFabric.player_form.forms.Form_Ocelot3;
+import net.onixary.shapeShifterCurseFabric.player_form.forms.Form_SnowFox2;
+import net.onixary.shapeShifterCurseFabric.player_form.forms.Form_SnowFox3;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -20,7 +27,7 @@ import java.util.regex.Pattern;
  * 动态数据包注册的形态. 判定优先级:
  *   1) Java API 显式注册 (registerLegType)
  *   2) 数据包 JSON 显式注册 (LegTypeDataLoader 写入 dataRegistry)
- *   3) 反射 instanceof 探测已知 SSC Form 类 (tier-2 直立趾行 / tier-3 四足)
+ *   3) instanceof 探测已知 SSC Form 类 (tier-2 直立趾行 / tier-3 四足)
  *   4) formID 正则兜底 (匹配 SSC 官方裸 NormalForm 的 anubis_wolf_2 等)
  *
  * 语义: DIGITIGRADE / QUADRUPED 都算兽腿, isBeastLeg 返回 true.
@@ -56,8 +63,6 @@ public final class SscFormCompat {
     private static final Map<ResourceLocation, LegType> dataRegistry = new HashMap<>();
     private static final Map<ResourceLocation, LegType> builtinRegistry = new LinkedHashMap<>();
 
-    private static final Map<Class<?>, LegType> classProbeTable = new LinkedHashMap<>();
-
     private static final Pattern OFFICIAL_ID_PATTERN =
         Pattern.compile("^(snow_fox|anubis_wolf|familiar_fox|ocelot|bat)_(\\d+).*$");
 
@@ -67,32 +72,7 @@ public final class SscFormCompat {
     public static synchronized void init() {
         if (initialized) return;
         initialized = true;
-        loadClassProbeTable();
         loadBuiltinRegistry();
-    }
-
-    private static void loadClassProbeTable() {
-        // 沿用 SSCFurniture 中已使用的 5 家: SNOW_FOX / ANUBIS_WOLF / FAMILIAR_FOX / OCELOT / BAT.
-        // ANUBIS_WOLF_2 在 SSC 里是裸 NormalForm 没专属类 — 靠正则兜底, 附属基于它扩展需手动登记.
-        putProbe("net.onixary.shapeShifterCurseFabric.player_form.forms.Form_SnowFox2",     LegType.DIGITIGRADE);
-        putProbe("net.onixary.shapeShifterCurseFabric.player_form.forms.Form_FamiliarFox2", LegType.DIGITIGRADE);
-        putProbe("net.onixary.shapeShifterCurseFabric.player_form.forms.Form_Ocelot2",      LegType.DIGITIGRADE);
-        putProbe("net.onixary.shapeShifterCurseFabric.player_form.forms.Form_Bat2",         LegType.DIGITIGRADE);
-
-        putProbe("net.onixary.shapeShifterCurseFabric.player_form.forms.Form_SnowFox3",     LegType.QUADRUPED);
-        putProbe("net.onixary.shapeShifterCurseFabric.player_form.forms.Form_FamiliarFox3", LegType.QUADRUPED);
-        putProbe("net.onixary.shapeShifterCurseFabric.player_form.forms.Form_Ocelot3",      LegType.QUADRUPED);
-        putProbe("net.onixary.shapeShifterCurseFabric.player_form.forms.Form_Bat3",         LegType.QUADRUPED);
-        putProbe("net.onixary.shapeShifterCurseFabric.player_form.forms.Form_AnubisWolf3",  LegType.QUADRUPED);
-    }
-
-    private static void putProbe(String fqcn, LegType type) {
-        try {
-            Class<?> cls = Class.forName(fqcn);
-            classProbeTable.put(cls, type);
-        } catch (ClassNotFoundException e) {
-            SSCFurniture.LOGGER.warn("[SscFormCompat] SSC form class not found, skip probe: {}", fqcn);
-        }
     }
 
     private static void loadBuiltinRegistry() {
@@ -124,9 +104,9 @@ public final class SscFormCompat {
     /** 主入口: 优先级链判定. 无法识别返回 null. */
     public static LegType getLegType(Player player) {
         if (player == null) return null;
-        Object form = getCurrentFormObject(player);
+        IForm form = SscFormAccess.getCurrentForm(player);
         if (form == null) return null;
-        ResourceLocation id = getFormIdFromObject(form);
+        ResourceLocation id = SscFormAccess.getFormId(form);
 
         // 1) Java API
         if (id != null) {
@@ -137,10 +117,9 @@ public final class SscFormCompat {
             if (t != null) return t;
         }
 
-        // 3) 反射 instanceof (自动覆盖附属基于 Form_xxx 类扩展的形态, 如 hex_fox_2 = new Form_FamiliarFox2(...))
-        for (Map.Entry<Class<?>, LegType> e : classProbeTable.entrySet()) {
-            if (e.getKey().isInstance(form)) return e.getValue();
-        }
+        // 3) instanceof (自动覆盖附属基于 Form_xxx 类扩展的形态, 如 hex_fox_2 = new Form_FamiliarFox2(...))
+        LegType probe = probeLegType(form);
+        if (probe != null) return probe;
 
         // 4) 内置官方 formID 兜底 (主要为 anubis_wolf_2 这种裸 NormalForm)
         if (id != null) {
@@ -165,40 +144,22 @@ public final class SscFormCompat {
         return t == LegType.DIGITIGRADE || t == LegType.QUADRUPED;
     }
 
-    // ---------------------------------------------------------------
-    // SSC 反射工具 (与 SSCFurniture.getCurrentFormObject 同路径, 独立一份避免循环依赖)
-    // ---------------------------------------------------------------
-
-    private static Object getCurrentFormObject(Player player) {
-        try {
-            Class<?> regCompClass = Class.forName(
-                "net.onixary.shapeShifterCurseFabric.player_form.utils.RegPlayerFormComponent");
-            Field playerFormField = regCompClass.getField("PLAYER_FORM");
-            Object componentKey = playerFormField.get(null);
-            Object component = null;
-            for (Method m : componentKey.getClass().getMethods()) {
-                if (m.getName().equals("get") && m.getParameterCount() == 1
-                    && m.getParameterTypes()[0].isInstance(player)) {
-                    component = m.invoke(componentKey, player);
-                    break;
-                }
-            }
-            if (component == null) return null;
-            Field nowFormField = component.getClass().getField("nowForm");
-            return nowFormField.get(component);
-        } catch (Throwable e) {
-            return null;
+    /** instanceof 探测已知 SSC Form 类 (顺序与旧 classProbeTable 一致: 先 tier-2 后 tier-3). */
+    private static LegType probeLegType(IForm form) {
+        if (form instanceof Form_SnowFox2
+                || form instanceof Form_FamiliarFox2
+                || form instanceof Form_Ocelot2
+                || form instanceof Form_Bat2) {
+            return LegType.DIGITIGRADE;
         }
-    }
-
-    private static ResourceLocation getFormIdFromObject(Object form) {
-        try {
-            Method getFormID = form.getClass().getMethod("getFormID");
-            Object v = getFormID.invoke(form);
-            return v instanceof ResourceLocation rl ? rl : null;
-        } catch (Throwable e) {
-            return null;
+        if (form instanceof Form_SnowFox3
+                || form instanceof Form_FamiliarFox3
+                || form instanceof Form_Ocelot3
+                || form instanceof Form_Bat3
+                || form instanceof Form_AnubisWolf3) {
+            return LegType.QUADRUPED;
         }
+        return null;
     }
 
     /** Debug 用: 快照当前所有注册来源, 便于 /command 或调试. */
