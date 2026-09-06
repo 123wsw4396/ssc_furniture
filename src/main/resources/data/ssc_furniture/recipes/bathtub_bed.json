@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "ASA",
+        "SAS",
+        "BBB"
+    ],
+    "key": {
+      "A": {"item":"shape-shifter-curse:untreated_moondust"},
+      "S": {"item": "minecraft:water_bucket"},
+      "B": {"item":"minecraft:quartz"}
+    },
+    "result": {
+        "item": "ssc_furniture:bathtub_bed",
+        "count": 1
+    }
+}

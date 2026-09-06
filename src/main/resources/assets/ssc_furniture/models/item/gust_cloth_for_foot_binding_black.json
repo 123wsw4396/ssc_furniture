@@ -1,0 +1,6 @@
+﻿{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "ssc_furniture:item/gust_cloth_for_foot_binding_black"
+	}
+}

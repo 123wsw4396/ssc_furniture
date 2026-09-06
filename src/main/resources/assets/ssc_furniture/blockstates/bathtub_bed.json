@@ -1,0 +1,12 @@
+{
+    "variants": {
+        "facing=north,part=foot": { "model": "ssc_furniture:block/bathtub_bed_foot", "y": 180 },
+        "facing=south,part=foot": { "model": "ssc_furniture:block/bathtub_bed_foot" },
+        "facing=east,part=foot": { "model": "ssc_furniture:block/bathtub_bed_foot", "y": 270 },
+        "facing=west,part=foot": { "model": "ssc_furniture:block/bathtub_bed_foot", "y": 90 },
+        "facing=north,part=head": { "model": "ssc_furniture:block/bathtub_bed_head", "y": 180 },
+        "facing=south,part=head": { "model": "ssc_furniture:block/bathtub_bed_head" },
+        "facing=east,part=head": { "model": "ssc_furniture:block/bathtub_bed_head", "y": 270 },
+        "facing=west,part=head": { "model": "ssc_furniture:block/bathtub_bed_head", "y": 90 }
+    }
+}

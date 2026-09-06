@@ -1,0 +1,12 @@
+{
+    "variants": {
+        "facing=north,part=foot": { "model": "ssc_furniture:block/waterbed_foot" },
+        "facing=south,part=foot": { "model": "ssc_furniture:block/waterbed_foot", "y": 180 },
+        "facing=east,part=foot": { "model": "ssc_furniture:block/waterbed_foot", "y": 90 },
+        "facing=west,part=foot": { "model": "ssc_furniture:block/waterbed_foot", "y": 270 },
+        "facing=north,part=head": { "model": "ssc_furniture:block/waterbed_head" },
+        "facing=south,part=head": { "model": "ssc_furniture:block/waterbed_head", "y": 180 },
+        "facing=east,part=head": { "model": "ssc_furniture:block/waterbed_head", "y": 90 },
+        "facing=west,part=head": { "model": "ssc_furniture:block/waterbed_head", "y": 270 }
+    }
+}

@@ -1,0 +1,22 @@
+{
+  "item.grappling_hook.shoot": {
+    "category": "player",
+    "subtitle": "subtitles.ssc_furniture.grappling_hook.shoot",
+    "sounds": [
+      {
+        "name": "ssc_furniture:item/grappling_hook/spider_claw_sound",
+        "stream": false
+      }
+    ]
+  },
+  "block.digestion_web_box.open_close": {
+    "category": "block",
+    "subtitle": "subtitles.ssc_furniture.digestion_web_box.open_close",
+    "sounds": [
+      {
+        "name": "ssc_furniture:block/digestion_web_box/open_close",
+        "stream": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "PPM",
+        "S  ",
+        " SS"
+    ],
+    "key": {
+        "P": {
+            "item": "minecraft:paper"
+        },
+        "M": {
+            "item": "shape-shifter-curse:untreated_moondust"
+        },
+        "S": {
+            "item": "minecraft:string"
+        }
+    },
+    "result": {
+        "item": "ssc_furniture:gust_cloth_for_foot_binding",
+        "count": 1
+    }
+}

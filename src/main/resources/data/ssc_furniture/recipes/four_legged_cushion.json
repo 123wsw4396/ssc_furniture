@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " C ",
+        "BAB",
+        "BBB"
+    ],
+    "key": {
+        "A": {"tag": "minecraft:wool"},
+        "B": {"tag": "minecraft:planks"},
+        "C": {"item": "shape-shifter-curse:untreated_moondust"}
+    },
+    "result": {
+        "item": "ssc_furniture:four_legged_cushion",
+        "count": 1
+    }
+}

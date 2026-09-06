@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "CAC",
+      "SAS",
+      "BMB"
+    ],
+  "key": {
+    "S": {
+      "item": "minecraft:diamond"
+    },
+    "A":{
+      "item":"shape-shifter-curse:silk_dew"
+    },
+    "B": {
+      "item":"shape-shifter-curse:untreated_moondust"
+    },
+    "C": {
+      "item":"minecraft:piston"
+    },
+    "M": {
+      "item":"shape-shifter-curse:moondust_crystal_shard"
+    }
+  },
+    "result": {
+        "item": "ssc_furniture:diamond_grappling_hook",
+        "count": 1
+    }
+}
